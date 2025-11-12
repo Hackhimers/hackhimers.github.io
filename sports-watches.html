@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sports Watches - Hackhimers</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary: #1a1a2e;
+            --secondary: #16213e;
+            --accent: #e94560;
+            --light: #f0f0f0;
+            --text: #333;
+            --text-light: #fff;
+        }
+
+        body {
+            background-color: #f9f9f9;
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: var(--primary);
+            color: var(--text-light);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--text-light);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo i {
+            margin-right: 10px;
+            color: var(--accent);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 1.5rem;
+        }
+
+        nav ul li a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: var(--accent);
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+        }
+
+        .header-actions a {
+            color: var(--text-light);
+            margin-left: 1rem;
+            font-size: 1.2rem;
+            transition: color 0.3s;
+        }
+
+        .header-actions a:hover {
+            color: var(--accent);
+        }
+
+        /* Tooltip Styles */
+        .tooltip-item {
+            position: relative;
+            display: inline-block;
+        }
+
+        .tooltip-text {
+            visibility: hidden;
+            width: 150px;
+            background-color: var(--primary);
+            color: white;
+            text-align: center;
+            border-radius: 6px;
+            padding: 8px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -75px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-size: 0.9rem;
+        }
+
+        .tooltip-text::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: var(--primary) transparent transparent transparent;
+        }
+
+        .tooltip-item:hover .tooltip-text {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        /* Breadcrumb */
+        .breadcrumb {
+            padding: 1rem 0;
+            background-color: #f5f5f5;
+            margin-bottom: 2rem;
+        }
+
+        .breadcrumb a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .breadcrumb a:hover {
+            color: var(--accent);
+        }
+
+        /* Section Title */
+        .section-title {
+            text-align: center;
+            margin: 2rem 0;
+            font-size: 2.2rem;
+            color: var(--primary);
+            position: relative;
+        }
+
+        .section-title:after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background-color: var(--accent);
+            margin: 10px auto;
+        }
+
+        /* Products Grid */
+        .products {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .product-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .product-img {
+            height: 250px;
+            overflow: hidden;
+        }
+
+        .product-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .product-card:hover .product-img img {
+            transform: scale(1.1);
+        }
+
+        .product-info {
+            padding: 1.5rem;
+        }
+
+        .product-info h3 {
+            margin-bottom: 0.5rem;
+            font-size: 1.3rem;
+        }
+
+        .product-price {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--accent);
+            margin: 0.5rem 0;
+        }
+
+        .product-description {
+            color: #666;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+
+        /* Features */
+        .features {
+            background-color: var(--primary);
+            color: var(--text-light);
+            padding: 4rem 0;
+            margin: 4rem 0;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature {
+            text-align: center;
+            padding: 1.5rem;
+        }
+
+        .feature i {
+            font-size: 2.5rem;
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+
+        .feature h3 {
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--primary);
+            color: var(--text-light);
+            padding: 4rem 0 2rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-column h3 {
+            margin-bottom: 1.5rem;
+            font-size: 1.3rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        .footer-column h3:after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 40px;
+            height: 3px;
+            background-color: var(--accent);
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-column ul li a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-column ul li a:hover {
+            color: var(--accent);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            transition: all 0.3s;
+        }
+
+        .social-links a:hover {
+            background-color: var(--accent);
+            transform: translateY(-3px);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+
+        /* Thank You Message Styles */
+        .thank-you-message {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: var(--text-light);
+            padding: 4rem 0;
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        .thank-you-content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .thank-you-content .fa-heart {
+            font-size: 3rem;
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+        }
+
+        .thank-you-content h2 {
+            font-size: 2.2rem;
+            margin-bottom: 1rem;
+            color: white;
+        }
+
+        .thank-you-content p {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .thank-you-features {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .thank-you-features .feature {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 0.8rem 1.2rem;
+            border-radius: 25px;
+            backdrop-filter: blur(10px);
+        }
+
+        .thank-you-features .feature i {
+            color: var(--accent);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            nav ul {
+                margin: 1rem 0;
+                justify-content: center;
+            }
+
+            .header-actions {
+                margin-top: 1rem;
+            }
+
+            .thank-you-features {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .thank-you-content h2 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-content">
+            <a href="index.html" class="logo">
+                <i class="fas fa-clock"></i> Hackhimers
+            </a>
+            <nav>
+                <ul>
+                   <li class="tooltip-item">
+                      <a href="index.html">Shop</a>
+                      <span class="tooltip-text">University of Lagos</span>
+                   </li>
+                   <li class="tooltip-item">
+                      <a href="#">About</a>
+                      <span class="tooltip-text">Smarter Time. Sharper You</span>
+                  </li>
+                   <li class="tooltip-item">
+                      <a href="#">Contact</a>
+                      <span class="tooltip-text">07044139344</span>
+                  </li>
+                </ul>
+            </nav>
+            <div class="header-actions">
+                <a href="#" class="tooltip-item">
+                    <i class="fas fa-user"></i>
+                    <span class="tooltip-text">Longe Abdulhackym</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumb container">
+        <a href="index.html">Home</a> > <span>Sports Watches</span>
+    </div>
+
+    <!-- Sports Watches Section -->
+    <section class="container">
+        <h2 class="section-title">Sports Watches Collection</h2>
+        <div class="products">
+            <!-- Sports Watch 1 -->
+            <div class="product-card">
+                <div class="product-img">
+                    <img src="Images/gshock3.jpeg" alt="G-Shock">
+                </div>
+                <div class="product-info">
+                    <h3>G-Shock GM-2100</h3>
+                    <div class="product-price">#42,000</div>
+                    <p class="product-description">Designed to withstand tough conditions, it combines bold style with advanced features for those who live without limits.</p>
+                </div>
+            </div>
+
+            <!-- Sports Watch 2 -->
+            <div class="product-card">
+                <div class="product-img">
+                    <img src="Images/gshock4.jpeg" alt="Luxury G-Shock">
+                </div>
+                <div class="product-info">
+                    <h3>Luxury G-Shock</h3>
+                    <div class="product-price">#45,000</div>
+                    <p class="product-description">Combining G-SHOCK’s legendary durability with premium materials and bold design, it delivers strength, style, and sophistication in every moment.</p>
+                </div>
+            </div>
+
+            <!-- Sports Watch 3 -->
+            <div class="product-card">
+                <div class="product-img">
+                    <img src="Images/gshock5.jpeg" alt="Digital G-Shock">
+                </div>
+                <div class="product-info">
+                    <h3>Digital G-Shock</h3>
+                    <div class="product-price">#26,000</div>
+                    <p class="product-description">Engineered for endurance. With rugged design, advanced digital features, and unbeatable toughness, it’s built to perform in any environment.</p>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-img">
+                    <img src="Images/cr7.jpeg" alt="Jaco&co(Cr7 Edition)">
+                </div>
+                <div class="product-info">
+                    <h3>Jaco&co(Cr7 Edition)</h3>
+                    <div class="product-price">#31,000</div>
+                    <p class="product-description">Designed with precision, power, and style that mirror Cristiano Ronaldo’s legacy — a timepiece made for champions.</p>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-img">
+                    <img src="Images/gshock6.jpeg" alt="G-Shock Dual Time Sports Watch">
+                </div>
+                <div class="product-info">
+                    <h3>G-Shock Dual Time Sports Watch</h3>
+                    <div class="product-price">#27,000</div>
+                    <p class="product-description">Experience Maximum Durability and Essential Sports Functionality A Dual Time G-Shock That Will Outlast Every Adventure.</p>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-img">
+                    <img src="Images/gshock7.jpeg" alt="G-Shock Tortoise">
+                </div>
+                <div class="product-info">
+                    <h3>G-Shock Tortoise</h3>
+                    <div class="product-price">#26,000</div>
+                    <p class="product-description">The Stunning Translucent G-Shock Tortoise Full Shock Resistance Forged Into a Unique, Stylish Casing The Ultimate Fusion of Fashion-Forward Design and Durability.</p>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-img">
+                    <img src="Images/gshock8.jpeg" alt="G-Shock GA-900H">
+                </div>
+                <div class="product-info">
+                    <h3>G-Shock GA-900H</h3>
+                    <div class="product-price">#48,000</div>
+                    <p class="product-description">Engineered with Extreme Water Resistance and Shock Protection The Ultimate High-Performance Watch for the Grittiest Environments.</p>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-img">
+                    <img src="Images/gshock9.jpeg" alt="G-Shock Digital">
+                </div>
+                <div class="product-info">
+                    <h3>G-Shock Digital</h3>
+                    <div class="product-price">#28,000</div>
+                    <p class="product-description">The Essential G-Shock Digital High-Contrast Displays Engineered for Absolute Legibility in Any Condition The Ultimate Utilitarian Watch Built for the Next Decade of Endurance.</p>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-img">
+                    <img src="Images/gshock10.jpeg" alt="G-Shock GST-B400">
+                </div>
+                <div class="product-info">
+                    <h3>G-Shock GST-B400</h3>
+                    <div class="product-price">#79,000</div>
+                    <p class="product-description">Built to resist shocks, water, and time itself, it combines rugged durability with bold, iconic style for those who never back down.</p>
+                </div>
+            </div>
+
+             <div class="product-card">
+                <div class="product-img">
+                    <img src="Images/gshock11.jpeg" alt="G-Shock GA-100B">
+                </div>
+                <div class="product-info">
+                    <h3>G-Shock GA-100B</h3>
+                    <div class="product-price">#27,000</div>
+                    <p class="product-description">Featuring a large, dynamic display, shock resistance, and 200-meter water resistance, it’s the perfect fusion of strength and style.</p>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-img">
+                    <img src="Images/gshock12.jpeg" alt="G-Shock Chain">
+                </div>
+                <div class="product-info">
+                    <h3>G-Shock Chain</h3>
+                    <div class="product-price">#29,000</div>
+                    <p class="product-description">With its bold chain design and legendary toughness, it delivers durability, precision, and confidence in every moment.</p>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-img">
+                    <img src="Images/gshock13.jpeg" alt="G-Shock Stone">
+                </div>
+                <div class="product-info">
+                    <h3>G-Shock Stone</h3>
+                    <div class="product-price">#62,000</div>
+                    <p class="product-description">Designed with a stone-textured finish and G-SHOCK’s signature durability, it’s built to stand out and stand strong.</p>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-img">
+                    <img src="Images/gshock14.jpeg" alt="G-Shock Luxury Chain">
+                </div>
+                <div class="product-info">
+                    <h3>G-Shock Luxury Chain</h3>
+                    <div class="product-price">#54,000</div>
+                    <p class="product-description">A Statement of High-End Style and Unwavering Shock Resistance, This Is The Luxury Chain Watch Built For Absolute Performance.</p>
+                </div>
+            </div>
+
+
+
+
+
+
+
+            <!-- Add more sports watches here as needed -->
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section class="features">
+        <div class="container">
+            <div class="features-grid">
+                <div class="feature">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <h3>High Performance</h3>
+                    <p>Built for speed, accuracy, and durability in any condition</p>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-water"></i>
+                    <h3>Water Resistant</h3>
+                    <p>Designed to withstand water pressure and extreme conditions</p>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-shield-alt"></i>
+                    <h3>Shock Resistant</h3>
+                    <p>Built to endure impacts and rough handling</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Hackhimers</h3>
+                    <p>Redefining Time, One Second at a Time.</p>
+                    <div class="social-links">
+                        <a href="https://wa.me/2347044139344" class="tooltip-item" target="_blank">
+                            <i class="fab fa-whatsapp"></i>
+                            <span class="tooltip-text">Whatsapp</span>
+                        </a>
+                        <a href="https://www.instagram.com/hackhimers" class="tooltip-item" target="_blank">
+                            <i class="fab fa-instagram"></i>
+                            <span class="tooltip-text">Instagram</span>
+                        </a>
+                        <a href="https://www.snapchat.com/add/hackhimers" class="tooltip-item" target="_blank">
+                            <i class="fab fa-snapchat"></i>
+                            <span class="tooltip-text">Snapchat</span>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Contact</h3>
+                    <ul>
+                        <li><i class="fas fa-map-marker-alt"></i> University of Lagos</li>
+                        <li><i class="fas fa-phone"></i> +234 704 413 9344</li>
+                        <li><i class="fas fa-envelope"></i> longeabdulhackym@gmail.com</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 Hackhimers. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Thank You Message -->
+    <div class="thank-you-message">
+        <div class="container">
+            <div class="thank-you-content">
+                <i class="fas fa-heart"></i>
+                <h2>Thank You for Shopping with Hackhimers!</h2>
+                <p>We appreciate your business and hope you enjoy your premium sports timepiece.</p>
+                <div class="thank-you-features">
+                    <div class="feature">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>1-Year Warranty Included</span>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-shipping-fast"></i>
+                        <span>Free Delivery Available</span>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-headset"></i>
+                        <span>24/7 Customer Support</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Simple functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            // Search functionality
+            const searchIcon = document.querySelector('.fa-search');
+            if (searchIcon) {
+                searchIcon.closest('a').addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const searchTerm = prompt('What are you looking for?');
+                    if (searchTerm) {
+                        alert(`Searching for: ${searchTerm}`);
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>

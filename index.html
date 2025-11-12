@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hackhimers | Premium Watches</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary: #1a1a2e;
+            --secondary: #16213e;
+            --accent: #e94560;
+            --light: #f0f0f0;
+            --text: #333;
+            --text-light: #fff;
+        }
+
+        body {
+            background-color: #f9f9f9;
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: var(--primary);
+            color: var(--text-light);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--text-light);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo i {
+            margin-right: 10px;
+            color: var(--accent);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 1.5rem;
+        }
+
+        nav ul li a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: var(--accent);
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+        }
+
+        .header-actions a {
+            color: var(--text-light);
+            margin-left: 1rem;
+            font-size: 1.2rem;
+            transition: color 0.3s;
+        }
+
+        .header-actions a:hover {
+            color: var(--accent);
+        }
+
+        /* Tooltip Styles */
+        .tooltip-item {
+            position: relative;
+            display: inline-block;
+        }
+
+        .tooltip-text {
+            visibility: hidden;
+            width: 150px;
+            background-color: var(--primary);
+            color: white;
+            text-align: center;
+            border-radius: 6px;
+            padding: 8px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -75px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-size: 0.9rem;
+        }
+
+        .tooltip-text::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: var(--primary) transparent transparent transparent;
+        }
+
+        .tooltip-item:hover .tooltip-text {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url("Images/hackhimers.jpeg");
+            background-size: cover;
+            background-position: center;
+            color: var(--text-light);
+            padding: 6rem 0;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--accent);
+            color: white;
+            padding: 0.8rem 1.8rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: #d13452;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Featured Products */
+        .section-title {
+            text-align: center;
+            margin: 4rem 0 2rem;
+            font-size: 2.2rem;
+            color: var(--primary);
+            position: relative;
+        }
+
+        .section-title:after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background-color: var(--accent);
+            margin: 10px auto;
+        }
+
+        .products {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .product-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .product-img {
+            height: 250px;
+            overflow: hidden;
+        }
+
+        .product-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .product-card:hover .product-img img {
+            transform: scale(1.1);
+        }
+
+        .product-info {
+            padding: 1.5rem;
+        }
+
+        .product-info h3 {
+            margin-bottom: 0.5rem;
+            font-size: 1.3rem;
+        }
+
+        .product-price {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--accent);
+            margin: 0.5rem 0;
+        }
+
+        .product-description {
+            color: #666;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+
+        /* Categories - UPDATED FOR CLICKABLE CARDS */
+        .categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 4rem;
+        }
+
+        .category-card {
+            position: relative;
+            height: 200px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            display: block; /* Makes it clickable */
+            text-decoration: none; /* Remove underline */
+            color: inherit; /* Inherit text color */
+            transition: transform 0.3s;
+        }
+
+        .category-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .category-card:hover img {
+            transform: scale(1.1);
+        }
+
+        .category-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .category-name {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+            color: white;
+            padding: 1rem;
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+
+        /* Features */
+        .features {
+            background-color: var(--primary);
+            color: var(--text-light);
+            padding: 4rem 0;
+            margin: 4rem 0;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature {
+            text-align: center;
+            padding: 1.5rem;
+        }
+
+        .feature i {
+            font-size: 2.5rem;
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+
+        .feature h3 {
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--primary);
+            color: var(--text-light);
+            padding: 4rem 0 2rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-column h3 {
+            margin-bottom: 1.5rem;
+            font-size: 1.3rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        .footer-column h3:after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 40px;
+            height: 3px;
+            background-color: var(--accent);
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-column ul li a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-column ul li a:hover {
+            color: var(--accent);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            transition: all 0.3s;
+        }
+
+        .social-links a:hover {
+            background-color: var(--accent);
+            transform: translateY(-3px);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            nav ul {
+                margin: 1rem 0;
+                justify-content: center;
+            }
+
+            .header-actions {
+                margin-top: 1rem;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-content">
+            <a href="#" class="logo">
+                <i class="fas fa-clock"></i> Hackhimers
+            </a>
+            <nav>
+                <ul>
+                   <li class="tooltip-item">
+                      <a href="#">Shop</a>
+                      <span class="tooltip-text">University of Lagos</span>
+                   </li>
+                   <li class="tooltip-item">
+                      <a href="#">About</a>
+                      <span class="tooltip-text">Smarter Time. Sharper You</span>
+                  </li>
+                   <li class="tooltip-item">
+                      <a href="#">Contact</a>
+                      <span class="tooltip-text">07044139344</span>
+                  </li>
+                </ul>
+            </nav>
+            <div class="header-actions">
+                <a href="#" class="tooltip-item">
+                    <i class="fas fa-user"></i>
+                    <span class="tooltip-text">Longe Abdulhackym</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Redefining Time, One Second at a Time</h1>
+            <p>Discover our premium collection of watches that blend craftsmanship, style, and precision for every occasion.</p>
+        </div>
+    </section>
+
+    <!-- Featured Products -->
+    <section class="container">
+        <h2 class="section-title">Featured Watches</h2>
+        <div class="products">
+            <!-- Product 1 -->
+            <div class="product-card">
+                <div class="product-img">
+                    <img src="Images/gshock.jpeg" alt="G-Shock">
+                </div>
+                <div class="product-info">
+                    <h3>G-Shock</h3>
+                    <div class="product-price">#42,000</div>
+                    <p class="product-description">Designed to withstand tough conditions, it combines bold style with advanced features for those who live without limits.</p>
+                </div>
+            </div>
+
+            <!-- Product 2 -->
+            <div class="product-card">
+                <div class="product-img">
+                    <img src="Images/richardmille.jpeg" alt="Richard Mille">
+                </div>
+                <div class="product-info">
+                    <h3>Richard Mille</h3>
+                    <div class="product-price">#29,000</div>
+                    <p class="product-description">Combining cutting-edge technology with luxury design, each timepiece delivers unmatched precision, performance, and prestige.</p>
+                </div>
+            </div>
+
+            <!-- Product 3 -->
+            <div class="product-card">
+                <div class="product-img">
+                    <img src="Images/hublot.jpeg" alt="Hublot Leather Watch">
+                </div>
+                <div class="product-info">
+                    <h3>Hublot Leather Watch</h3>
+                    <div class="product-price">#25,000</div>
+                    <p class="product-description">Crafted with fine leather and Swiss precision, this timepiece blends luxury, comfort, and timeless sophistication.</p>
+                </div>
+            </div>
+
+            <!-- Product 4 -->
+            <div class="product-card">
+                <div class="product-img">
+                    <img src="Images/fullstonecartier.jpeg" alt="Full Stone Cartier">
+                </div>
+                <div class="product-info">
+                    <h3>Full Stone Cartier</h3>
+                    <div class="product-price">#34,000</div>
+                    <p class="product-description">Fully adorned with exquisite stones, this masterpiece radiates luxury, craftsmanship, and timeless glamour.</p>
+                </div>
+            </div>
+
+            <!-- Product 5 -->
+            <div class="product-card">
+                <div class="product-img">
+                    <img src="Images/matturi.jpeg" alt="Matturi Decoster Watch">
+                </div>
+                <div class="product-info">
+                    <h3>Matturi Decoster Watch</h3>
+                    <div class="product-price">#33,000</div>
+                    <p class="product-description">Expertly crafted for those who value sophistication, innovation, and timeless African-inspired luxury.</p>
+                </div>
+            </div>
+
+            <!-- Product 6 -->
+            <div class="product-card">
+                <div class="product-img">
+                    <img src="Images/poedagarmcd.jpeg" alt="Poedagar Watch(Mettle Chronograph Design">
+                </div>
+                <div class="product-info">
+                    <h3>Poedegar Watch</h3>
+                    <div class="product-price">#34,000</div>
+                    <p class="product-description">Featuring a sleek metal chronograph design, this watch blends strength, style, and modern engineering in perfect harmony.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Categories - UPDATED WITH CLICKABLE LINKS -->
+    <section class="container">
+        <h2 class="section-title">Shop by Category</h2>
+        <div class="categories">
+            <a href="luxury-watches.html" class="category-card">
+                <img src="Images/casio.jpeg" alt="Luxury Watches">
+                <div class="category-name">Luxury</div>
+            </a>
+            <a href="sports-watches.html" class="category-card">
+                <img src="Images/gshock2.jpeg" alt="Sports Watches">
+                <div class="category-name">Sports</div>
+            </a>
+            <a href="classic-watches.html" class="category-card">
+                <img src="Images/casio2.jpeg" alt="Classic Watches">
+                <div class="category-name">Classic</div>
+            </a>
+            <a href="smart-watches.html" class="category-card">
+                <img src="Images/smartwatch.jpeg" alt="Smart Watches">
+                <div class="category-name">Smart</div>
+            </a>
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section class="features">
+        <div class="container">
+            <div class="features-grid">
+                <div class="feature">
+                    <i class="fas fa-shipping-fast"></i>
+                    <h3>Free Delivery</h3>
+                    <p>Free delivery on all orders over #85,000.</p>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-shield-alt"></i>
+                    <h3>1-Year Warranty</h3>
+                    <p>Every watch comes with a 1-year warranty.</p>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-headset"></i>
+                    <h3>24/7 Support</h3>
+                    <p>Round-the-clock customer service to help with any queries.</p>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-undo-alt"></i>
+                    <h3>All purchases are final.</h3>
+                    <p>We are sure that you'll be satisfied with all purchases.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Hackhimers</h3>
+                    <p>Redefining Time, One Second at a Time.</p>
+                    <div class="social-links">
+                        <a href="https://wa.me/2347044139344" class="tooltip-item" target="_blank">
+                            <i class="fab fa-whatsapp"></i>
+                            <span class="tooltip-text">Whatsapp</span>
+                        </a>
+                        <a href="https://www.instagram.com/hackhimers" class="tooltip-item" target="_blank">
+                            <i class="fab fa-instagram"></i>
+                            <span class="tooltip-text">Instagram</span>
+                        </a>
+                        <a href="https://www.snapchat.com/add/hackhimers" class="tooltip-item" target="_blank">
+                            <i class="fab fa-snapchat"></i>
+                            <span class="tooltip-text">Snapchat</span>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Contact</h3>
+                    <ul>
+                        <li><i class="fas fa-map-marker-alt"></i> University of Lagos</li>
+                        <li><i class="fas fa-phone"></i> +234 704 413 9344</li>
+                        <li><i class="fas fa-envelope"></i> longeabdulhackym@gmail.com</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 Hackhimers. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+        </footer>
+
+    <!-- Thank You Message -->
+    <div class="thank-you-message">
+        <div class="container">
+            <div class="thank-you-content">
+                <i class="fas fa-heart"></i>
+                <h2>Thank You for Shopping with Hackhimers!</h2>
+                <p>We appreciate your business and hope you enjoy your premium timepiece.</p>
+                <div class="thank-you-features">
+                    <div class="feature">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>1-Year Warranty Included</span>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-shipping-fast"></i>
+                        <span>Free Delivery Available</span>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-headset"></i>
+                        <span>24/7 Customer Support</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        /* Thank You Message Styles */
+        .thank-you-message {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: var(--text-light);
+            padding: 4rem 0;
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        .thank-you-content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .thank-you-content .fa-heart {
+            font-size: 3rem;
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+        }
+
+        .thank-you-content h2 {
+            font-size: 2.2rem;
+            margin-bottom: 1rem;
+            color: white;
+        }
+
+        .thank-you-content p {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .thank-you-features {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .thank-you-features .feature {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 0.8rem 1.2rem;
+            border-radius: 25px;
+            backdrop-filter: blur(10px);
+        }
+
+        .thank-you-features .feature i {
+            color: var(--accent);
+        }
+
+        @media (max-width: 768px) {
+            .thank-you-features {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .thank-you-content h2 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+
+    <script>
+        // Simple functionality
+        // ... your existing script ...
+    </script>
+</body>
+</html>
+
+    <script>
+        // Simple functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            // Search functionality
+            const searchIcon = document.querySelector('.fa-search');
+            if (searchIcon) {
+                searchIcon.closest('a').addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const searchTerm = prompt('What are you looking for?');
+                    if (searchTerm) {
+                        alert(`Searching for: ${searchTerm}`);
+                    }
+                });
+            }
+        });
+    </script>
+
+</body>
+</html>

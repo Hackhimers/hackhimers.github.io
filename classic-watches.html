@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Classic Watches - Hackhimers</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary: #1a1a2e;
+            --secondary: #16213e;
+            --accent: #e94560;
+            --light: #f0f0f0;
+            --text: #333;
+            --text-light: #fff;
+        }
+
+        body {
+            background-color: #f9f9f9;
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: var(--primary);
+            color: var(--text-light);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--text-light);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo i {
+            margin-right: 10px;
+            color: var(--accent);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 1.5rem;
+        }
+
+        nav ul li a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: var(--accent);
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+        }
+
+        .header-actions a {
+            color: var(--text-light);
+            margin-left: 1rem;
+            font-size: 1.2rem;
+            transition: color 0.3s;
+        }
+
+        .header-actions a:hover {
+            color: var(--accent);
+        }
+
+        /* Tooltip Styles */
+        .tooltip-item {
+            position: relative;
+            display: inline-block;
+        }
+
+        .tooltip-text {
+            visibility: hidden;
+            width: 150px;
+            background-color: var(--primary);
+            color: white;
+            text-align: center;
+            border-radius: 6px;
+            padding: 8px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -75px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-size: 0.9rem;
+        }
+
+        .tooltip-text::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: var(--primary) transparent transparent transparent;
+        }
+
+        .tooltip-item:hover .tooltip-text {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        /* Breadcrumb */
+        .breadcrumb {
+            padding: 1rem 0;
+            background-color: #f5f5f5;
+            margin-bottom: 2rem;
+        }
+
+        .breadcrumb a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .breadcrumb a:hover {
+            color: var(--accent);
+        }
+
+        /* Section Title */
+        .section-title {
+            text-align: center;
+            margin: 2rem 0;
+            font-size: 2.2rem;
+            color: var(--primary);
+            position: relative;
+        }
+
+        .section-title:after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background-color: var(--accent);
+            margin: 10px auto;
+        }
+
+        /* Products Grid */
+        .products {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .product-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .product-img {
+            height: 250px;
+            overflow: hidden;
+        }
+
+        .product-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .product-card:hover .product-img img {
+            transform: scale(1.1);
+        }
+
+        .product-info {
+            padding: 1.5rem;
+        }
+
+        .product-info h3 {
+            margin-bottom: 0.5rem;
+            font-size: 1.3rem;
+        }
+
+        .product-price {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--accent);
+            margin: 0.5rem 0;
+        }
+
+        .product-description {
+            color: #666;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+
+        /* Features */
+        .features {
+            background-color: var(--primary);
+            color: var(--text-light);
+            padding: 4rem 0;
+            margin: 4rem 0;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature {
+            text-align: center;
+            padding: 1.5rem;
+        }
+
+        .feature i {
+            font-size: 2.5rem;
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+
+        .feature h3 {
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--primary);
+            color: var(--text-light);
+            padding: 4rem 0 2rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-column h3 {
+            margin-bottom: 1.5rem;
+            font-size: 1.3rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        .footer-column h3:after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 40px;
+            height: 3px;
+            background-color: var(--accent);
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-column ul li a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-column ul li a:hover {
+            color: var(--accent);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            transition: all 0.3s;
+        }
+
+        .social-links a:hover {
+            background-color: var(--accent);
+            transform: translateY(-3px);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+
+        /* Thank You Message Styles */
+        .thank-you-message {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: var(--text-light);
+            padding: 4rem 0;
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        .thank-you-content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .thank-you-content .fa-heart {
+            font-size: 3rem;
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+        }
+
+        .thank-you-content h2 {
+            font-size: 2.2rem;
+            margin-bottom: 1rem;
+            color: white;
+        }
+
+        .thank-you-content p {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .thank-you-features {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .thank-you-features .feature {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 0.8rem 1.2rem;
+            border-radius: 25px;
+            backdrop-filter: blur(10px);
+        }
+
+        .thank-you-features .feature i {
+            color: var(--accent);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            nav ul {
+                margin: 1rem 0;
+                justify-content: center;
+            }
+
+            .header-actions {
+                margin-top: 1rem;
+            }
+
+            .thank-you-features {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .thank-you-content h2 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-content">
+            <a href="index.html" class="logo">
+                <i class="fas fa-clock"></i> Hackhimers
+            </a>
+            <nav>
+                <ul>
+                   <li class="tooltip-item">
+                      <a href="index.html">Shop</a>
+                      <span class="tooltip-text">University of Lagos</span>
+                   </li>
+                   <li class="tooltip-item">
+                      <a href="#">About</a>
+                      <span class="tooltip-text">Smarter Time. Sharper You</span>
+                  </li>
+                   <li class="tooltip-item">
+                      <a href="#">Contact</a>
+                      <span class="tooltip-text">07044139344</span>
+                  </li>
+                </ul>
+            </nav>
+            <div class="header-actions">
+                <a href="#" class="tooltip-item">
+                    <i class="fas fa-user"></i>
+                    <span class="tooltip-text">Longe Abdulhackym</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumb container">
+        <a href="index.html">Home</a> > <span>Classic Watches</span>
+    </div>
+
+    <!-- Classic Watches Section -->
+    <section class="container">
+        <h2 class="section-title">Classic Watches Collection</h2>
+        <div class="products">
+            <!-- Classic Watch 1 -->
+            <div class="product-card">
+                <div class="product-img">
+                    <img src="Images/pateckphillipe.jpeg" alt="Patek Philippe">
+                </div>
+                <div class="product-info">
+                    <h3>Patek Philippe</h3>
+                    <div class="product-price">#23,000</div>
+                    <p class="product-description">Handcrafted with unmatched precision and heritage, each timepiece embodies sophistication, tradition, and enduring excellence.</p>
+                </div>
+            </div>
+
+            <!-- Classic Watch 2 -->
+            <div class="product-card">
+                <div class="product-img">
+                    <img src="Images/poedagar.jpeg" alt="Poedagar Men's Watch">
+                </div>
+                <div class="product-info">
+                    <h3>Poedagar Men's Watch</h3>
+                    <div class="product-price">#28,000</div>
+                    <p class="product-description">Combining bold design, durable craftsmanship, and precise timekeeping, it’s a perfect blend of strength and sophistication.</p>
+                </div>
+            </div>
+
+            <!-- Classic Watch 3 -->
+            <div class="product-card">
+                <div class="product-img">
+                    <img src="Images/poedagar2.jpeg" alt="Poedagar Chronograph Watch">
+                </div>
+                <div class="product-info">
+                    <h3>Poedagar Chronograph Watch</h3>
+                    <div class="product-price">#33,000</div>
+                    <p class="product-description">Featuring a bold chronograph design, this watch combines advanced functionality with refined style for those who value performance and elegance.</p>
+                </div>
+            </div>
+
+            <!-- Classic Watch 4 -->
+            <div class="product-card">
+                <div class="product-img">
+                    <img src="Images/casio4.jpeg" alt="Casio Analog Watch">
+                </div>
+                <div class="product-info">
+                    <h3>Casio Analog Watch</h3>
+                    <div class="product-price">#18,000</div>
+                    <p class="product-description">This analog watch blends durable craftsmanship with elegant design for reliable style every day.</p>
+                </div>
+            </div>
+
+             <div class="product-card">
+                <div class="product-img">
+                    <img src="Images/casio5.jpeg" alt="Casio Female Watch">
+                </div>
+                <div class="product-info">
+                    <h3>Casio Female Watch</h3>
+                    <div class="product-price">#19,000</div>
+                    <p class="product-description">Designed for the modern woman, this watch combines timeless elegance with reliable performance for every occasion.</p>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-img">
+                    <img src="Images/matturi4.jpeg" alt="Matturi Compass Watch">
+                </div>
+                <div class="product-info">
+                    <h3>Matturi Compass Watch</h3>
+                    <div class="product-price">#34,000</div>
+                    <p class="product-description">Combining precision timekeeping with a functional compass design, it’s the perfect companion for adventure and style.</p>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-img">
+                    <img src="Images/matturi3.jpeg" alt="Matturi Chain Watch">
+                </div>
+                <div class="product-info">
+                    <h3>Matturi Chain Watch</h3>
+                    <div class="product-price">#35,000</div>
+                    <p class="product-description">Featuring a refined chain design and precision craftsmanship, this watch embodies luxury, durability, and timeless style.</p>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-img">
+                    <img src="Images/michaelkors.jpeg" alt="Michael Kors Chain">
+                </div>
+                <div class="product-info">
+                    <h3>Michael Kors Chain</h3>
+                    <div class="product-price">#16,000</div>
+                    <p class="product-description">Effortless glamour meets modern design. With its sleek chain strap and refined finish, this watch adds a touch of luxury to every look.</p>
+                </div>
+            </div>
+
+             <div class="product-card">
+                <div class="product-img">
+                    <img src="Images/valenzo.jpeg" alt="Valenzo Digital Watch">
+                </div>
+                <div class="product-info">
+                    <h3>Valenzo Digital Watch</h3>
+                    <div class="product-price">#25,000</div>
+                    <p class="product-description">Designed with a modern digital display and durable build, it delivers performance, clarity, and confidence for everyday wear.</p>
+                </div>
+            </div>
+
+             <div class="product-card">
+                <div class="product-img">
+                    <img src="Images/bulgari.jpeg" alt="Bulgari Snake Watch">
+                </div>
+                <div class="product-info">
+                    <h3>Bulgari Snake Watch</h3>
+                    <div class="product-price">#26,000</div>
+                    <p class="product-description">Inspired by the iconic Serpenti design, this watch coils elegance and craftsmanship into one. A masterpiece of luxury that embodies grace, power, and timeless allure.</p>
+                </div>
+            </div>
+            
+            <div class="product-card">
+                <div class="product-img">
+                    <img src="Images/fossil.jpeg" alt="Fossil Female Watch">
+                </div>
+                <div class="product-info">
+                    <h3>Fossil Female Watch</h3>
+                    <div class="product-price">#21,000</div>
+                    <p class="product-description">Timeless beauty with a modern touch. Designed for the contemporary woman, this watch blends classic elegance with everyday sophistication.</p>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-img">
+                    <img src="Images/nh.jpeg" alt="NH Watch">
+                </div>
+                <div class="product-info">
+                    <h3>NH Watch</h3>
+                    <div class="product-price">#22,000</div>
+                    <p class="product-description">With its sleek design and reliable performance, it’s a perfect balance of modern elegance and lasting durability.</p>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-img">
+                    <img src="Images/universepoint.jpeg" alt="Universe Point Watch">
+                </div>
+                <div class="product-info">
+                    <h3>Universe Point Watch</h3>
+                    <div class="product-price">#23,000</div>
+                    <p class="product-description">Designed with precision and modern elegance, this watch captures the spirit of exploration, style, and sophistication.</p>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-img">
+                    <img src="Images/frankmuller2.jpeg" alt="Frank Muller">
+                </div>
+                <div class="product-info">
+                    <h3>Frank Muller</h3>
+                    <div class="product-price">#29,000</div>
+                    <p class="product-description">A Timepiece Engineered to Capture the Spirit of Exploration, The Perfect Union of Technical Excellence and Unmistakable Style.</p>
+                </div>
+            </div>
+
+
+
+            <div class="product-card">
+                <div class="product-img">
+                    <img src="Images/cartier3.jpeg" alt="Cartier Chain">
+                </div>
+                <div class="product-info">
+                    <h3>Cartier Chain</h3>
+                    <div class="product-price">#21,000</div>
+                    <p class="product-description">The Unmistakable Cartier Chain; Precision Craftsmanship Elevates Every Single Link, An Icon of Style That Defines Modern Elegance.</p>
+                </div>
+            </div>
+
+
+            <div class="product-card">
+                <div class="product-img">
+                    <img src="Images/torino.jpeg" alt="Torino Lamborghini">
+                </div>
+                <div class="product-info">
+                    <h3>Torino Lamborghini</h3>
+                    <div class="product-price">#42,000</div>
+                    <p class="product-description">A Bold Statement of Aggressive Design and Automotive Spirit, The Tonino Lamborghini Watch Captures the Essence of Speed.</p>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-img">
+                    <img src="Images/lige.jpeg" alt="Lige Rubber Watch">
+                </div>
+                <div class="product-info">
+                    <h3>Lige Rubber Watch</h3>
+                    <div class="product-price">#33,000</div>
+                    <p class="product-description">Precision Timing Housed in a Bold, Sport-Inspired Design, The Lige Rubber Watch: Sophistication for the Everyday Explorer.</p>
+                </div>
+            </div>
+
+
+             <div class="product-card">
+                <div class="product-img">
+                    <img src="Images/pateckphillipe2.jpeg" alt="Patek Philippe">
+                </div>
+                <div class="product-info">
+                    <h3>Patek Philippe</h3>
+                    <div class="product-price">#46,000</div>
+                    <p class="product-description">It's Iconic Design Captures the Spirit of Exploration and Refinement, Experience the Pinnacle of Modern Elegance.</p>
+                </div>
+            </div>
+                
+
+
+
+
+
+            <!-- Add more classic watches here as needed -->
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section class="features">
+        <div class="container">
+            <div class="features-grid">
+                <div class="feature">
+                    <i class="fas fa-crown"></i>
+                    <h3>Timeless Design</h3>
+                    <p>Classic styles that never go out of fashion</p>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-gem"></i>
+                    <h3>Premium Materials</h3>
+                    <p>Fine leather, stainless steel, and elegant finishes</p>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-history"></i>
+                    <h3>Heritage Craftsmanship</h3>
+                    <p>Traditional watchmaking techniques with modern precision</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Hackhimers</h3>
+                    <p>Redefining Time, One Second at a Time.</p>
+                    <div class="social-links">
+                        <a href="https://wa.me/2347044139344" class="tooltip-item" target="_blank">
+                            <i class="fab fa-whatsapp"></i>
+                            <span class="tooltip-text">Whatsapp</span>
+                        </a>
+                        <a href="https://www.instagram.com/hackhimers" class="tooltip-item" target="_blank">
+                            <i class="fab fa-instagram"></i>
+                            <span class="tooltip-text">Instagram</span>
+                        </a>
+                        <a href="https://www.snapchat.com/add/hackhimers" class="tooltip-item" target="_blank">
+                            <i class="fab fa-snapchat"></i>
+                            <span class="tooltip-text">Snapchat</span>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Contact</h3>
+                    <ul>
+                        <li><i class="fas fa-map-marker-alt"></i> University of Lagos</li>
+                        <li><i class="fas fa-phone"></i> +234 704 413 9344</li>
+                        <li><i class="fas fa-envelope"></i> longeabdulhackym@gmail.com</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 Hackhimers. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Thank You Message -->
+    <div class="thank-you-message">
+        <div class="container">
+            <div class="thank-you-content">
+                <i class="fas fa-heart"></i>
+                <h2>Thank You for Shopping with Hackhimers!</h2>
+                <p>We appreciate your business and hope you enjoy your timeless classic timepiece.</p>
+                <div class="thank-you-features">
+                    <div class="feature">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>1-Year Warranty Included</span>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-shipping-fast"></i>
+                        <span>Free Delivery Available</span>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-headset"></i>
+                        <span>24/7 Customer Support</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Simple functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            // Search functionality
+            const searchIcon = document.querySelector('.fa-search');
+            if (searchIcon) {
+                searchIcon.closest('a').addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const searchTerm = prompt('What are you looking for?');
+                    if (searchTerm) {
+                        alert(`Searching for: ${searchTerm}`);
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>
