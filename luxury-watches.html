@@ -23,8 +23,8 @@
         }
 
         body {
-            background-color: #f9f9f9;
-            color: var(--text);
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #2a2a2a 100%);
+            color: var(--text-light);
             line-height: 1.6;
         }
 
@@ -36,13 +36,14 @@
 
         /* Header Styles */
         header {
-            background-color: var(--primary);
+            background-color: #000000;
             color: var(--text-light);
             padding: 1rem 0;
             position: sticky;
             top: 0;
             z-index: 100;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            border-bottom: 1px solid #333;
         }
 
         .header-content {
@@ -60,9 +61,14 @@
             align-items: center;
         }
 
-        .logo i {
+        .logo-img {
+            width: 40px;
+            height: 40px;
             margin-right: 10px;
-            color: var(--accent);
+            border-radius: 50%;
+            object-fit: cover;
+            filter: grayscale(100%) brightness(120%);
+            border: 2px solid #fff;
         }
 
         nav ul {
@@ -82,7 +88,7 @@
         }
 
         nav ul li a:hover {
-            color: var(--accent);
+            color: #ffffff;
         }
 
         .header-actions {
@@ -98,7 +104,7 @@
         }
 
         .header-actions a:hover {
-            color: var(--accent);
+            color: #ffffff;
         }
 
         /* Tooltip Styles */
@@ -110,7 +116,7 @@
         .tooltip-text {
             visibility: hidden;
             width: 150px;
-            background-color: var(--primary);
+            background-color: #000000;
             color: white;
             text-align: center;
             border-radius: 6px;
@@ -123,6 +129,7 @@
             opacity: 0;
             transition: opacity 0.3s;
             font-size: 0.9rem;
+            border: 1px solid #333;
         }
 
         .tooltip-text::after {
@@ -133,7 +140,7 @@
             margin-left: -5px;
             border-width: 5px;
             border-style: solid;
-            border-color: var(--primary) transparent transparent transparent;
+            border-color: #000000 transparent transparent transparent;
         }
 
         .tooltip-item:hover .tooltip-text {
@@ -144,17 +151,22 @@
         /* Breadcrumb */
         .breadcrumb {
             padding: 1rem 0;
-            background-color: #f5f5f5;
+            background-color: #1a1a1a;
             margin-bottom: 2rem;
+            border-bottom: 1px solid #333;
         }
 
         .breadcrumb a {
-            color: var(--primary);
+            color: #ffffff;
             text-decoration: none;
         }
 
         .breadcrumb a:hover {
-            color: var(--accent);
+            color: #cccccc;
+        }
+
+        .breadcrumb span {
+            color: #cccccc;
         }
 
         /* Section Title */
@@ -162,7 +174,7 @@
             text-align: center;
             margin: 2rem 0;
             font-size: 2.2rem;
-            color: var(--primary);
+            color: #ffffff;
             position: relative;
         }
 
@@ -171,7 +183,7 @@
             display: block;
             width: 80px;
             height: 4px;
-            background-color: var(--accent);
+            background-color: #ffffff;
             margin: 10px auto;
         }
 
@@ -184,11 +196,12 @@
         }
 
         .product-card {
-            background-color: white;
+            background-color: #1a1a1a;
             border-radius: 10px;
             overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
             transition: transform 0.3s;
+            border: 1px solid #333;
         }
 
         .product-card:hover {
@@ -205,10 +218,12 @@
             height: 100%;
             object-fit: cover;
             transition: transform 0.5s;
+            filter: grayscale(20%);
         }
 
         .product-card:hover .product-img img {
             transform: scale(1.1);
+            filter: grayscale(0%);
         }
 
         .product-info {
@@ -218,27 +233,30 @@
         .product-info h3 {
             margin-bottom: 0.5rem;
             font-size: 1.3rem;
+            color: #ffffff;
         }
 
         .product-price {
             font-size: 1.2rem;
             font-weight: 700;
-            color: var(--accent);
+            color: #ffffff;
             margin: 0.5rem 0;
         }
 
         .product-description {
-            color: #666;
+            color: #cccccc;
             margin-bottom: 1rem;
             font-size: 0.9rem;
         }
 
         /* Features */
         .features {
-            background-color: var(--primary);
+            background-color: #000000;
             color: var(--text-light);
             padding: 4rem 0;
             margin: 4rem 0;
+            border-top: 1px solid #333;
+            border-bottom: 1px solid #333;
         }
 
         .features-grid {
@@ -254,20 +272,26 @@
 
         .feature i {
             font-size: 2.5rem;
-            color: var(--accent);
+            color: #ffffff;
             margin-bottom: 1rem;
         }
 
         .feature h3 {
             margin-bottom: 1rem;
             font-size: 1.3rem;
+            color: #ffffff;
+        }
+
+        .feature p {
+            color: #cccccc;
         }
 
         /* Footer */
         footer {
-            background-color: var(--primary);
+            background-color: #000000;
             color: var(--text-light);
             padding: 4rem 0 2rem;
+            border-top: 1px solid #333;
         }
 
         .footer-content {
@@ -282,6 +306,7 @@
             font-size: 1.3rem;
             position: relative;
             padding-bottom: 0.5rem;
+            color: #ffffff;
         }
 
         .footer-column h3:after {
@@ -291,7 +316,7 @@
             bottom: 0;
             width: 40px;
             height: 3px;
-            background-color: var(--accent);
+            background-color: #ffffff;
         }
 
         .footer-column ul {
@@ -303,13 +328,13 @@
         }
 
         .footer-column ul li a {
-            color: #ccc;
+            color: #cccccc;
             text-decoration: none;
             transition: color 0.3s;
         }
 
         .footer-column ul li a:hover {
-            color: var(--accent);
+            color: #ffffff;
         }
 
         .social-links {
@@ -331,25 +356,27 @@
         }
 
         .social-links a:hover {
-            background-color: var(--accent);
+            background-color: #ffffff;
+            color: #000000;
             transform: translateY(-3px);
         }
 
         .copyright {
             text-align: center;
             padding-top: 2rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            color: #aaa;
+            border-top: 1px solid #333;
+            color: #999;
             font-size: 0.9rem;
         }
 
         /* Thank You Message Styles */
         .thank-you-message {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            background: linear-gradient(135deg, #000000, #1a1a1a);
             color: var(--text-light);
             padding: 4rem 0;
             text-align: center;
             margin-top: 2rem;
+            border-top: 1px solid #333;
         }
 
         .thank-you-content {
@@ -359,7 +386,7 @@
 
         .thank-you-content .fa-heart {
             font-size: 3rem;
-            color: var(--accent);
+            color: #ffffff;
             margin-bottom: 1.5rem;
         }
 
@@ -390,10 +417,11 @@
             padding: 0.8rem 1.2rem;
             border-radius: 25px;
             backdrop-filter: blur(10px);
+            border: 1px solid #333;
         }
 
         .thank-you-features .feature i {
-            color: var(--accent);
+            color: #ffffff;
         }
 
         /* Responsive Design */
@@ -428,29 +456,14 @@
     <header>
         <div class="container header-content">
             <a href="index.html" class="logo">
-                <i class="fas fa-clock"></i> Hackhimers
+                <img src="Images/hackhimers.jpeg" alt="Hackhimers Logo" class="logo-img">
+                Hackhimers
             </a>
             <nav>
-                <ul>
-                   <li class="tooltip-item">
-                      <a href="index.html">Shop</a>
-                      <span class="tooltip-text">University of Lagos</span>
-                   </li>
-                   <li class="tooltip-item">
-                      <a href="#">About</a>
-                      <span class="tooltip-text">Smarter Time. Sharper You</span>
-                  </li>
-                   <li class="tooltip-item">
-                      <a href="#">Contact</a>
-                      <span class="tooltip-text">07044139344</span>
-                  </li>
-                </ul>
+                
             </nav>
             <div class="header-actions">
-                <a href="#" class="tooltip-item">
-                    <i class="fas fa-user"></i>
-                    <span class="tooltip-text">Longe Abdulhackym</span>
-                </a>
+                
             </div>
         </div>
     </header>
@@ -518,7 +531,7 @@
                 <div class="product-info">
                     <h3>Fossil Watch</h3>
                     <div class="product-price">#31,000</div>
-                    <p class="product-description">Built with quality craftsmanship and timeless appeal, it’s the perfect blend of vintage inspiration and contemporary elegance.</p>
+                    <p class="product-description">Built with quality craftsmanship and timeless appeal, it's the perfect blend of vintage inspiration and contemporary elegance.</p>
                 </div>
             </div>
 
@@ -606,7 +619,7 @@
                 <div class="product-info">
                     <h3>Poedagar Male Watch</h3>
                     <div class="product-price">#38,000</div>
-                    <p class="product-description">Combining bold style, durable craftsmanship, and precise timekeeping, it’s a perfect balance of power and elegance.</p>
+                    <p class="product-description">Combining bold style, durable craftsmanship, and precise timekeeping, it's a perfect balance of power and elegance.</p>
                 </div>
             </div>
 
@@ -697,8 +710,6 @@
                     <p class="product-description">Featuring distinctive multi-dial designs and rugged craftsmanship, Oulm watches blend originality, strength, and standout style.</p>
                 </div>
             </div>
-
-            <!-- Add more luxury watches here as needed -->
         </div>
     </section>
 
